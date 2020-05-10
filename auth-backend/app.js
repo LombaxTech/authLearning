@@ -4,6 +4,11 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
 const cors = require('cors');
+const session = require('express-session');
+
+const passport = require('passport');
+const initializePassport = require('./config/passportConfiguration');
+initializePassport();
 
 const app = express();
 
@@ -21,9 +26,19 @@ app.use(cookieParser());
 app.use(expressValidator());
 app.use(cors());
 
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// * Routes
+const authRoutes = require('./routes/auth');
 
 // * Route middleware
-// app.use('/api', authRoutes);
+app.use('/api', authRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, console.log('started listening'));
