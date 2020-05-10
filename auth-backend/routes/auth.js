@@ -22,6 +22,4 @@ router.get('/user/:userId', requireSignin, isAuth, isTutor, (req, res) => {
 
 router.param('userId', userById)
 
-
-
 module.exports = router;
