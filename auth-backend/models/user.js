@@ -14,8 +14,14 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
+    },
+    role: {
+        type: Number,
+        default: 0
     }
 })
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
+
+// ? Role 0 => student, 1 => tutor, 2 => admin

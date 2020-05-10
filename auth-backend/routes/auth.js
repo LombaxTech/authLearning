@@ -1,48 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt')
-const User = require('../models/user');
+// const jwt = require('jsonwebtoken');
+// const expressJwt = require('express-jwt');
+// const bcrypt = require('bcrypt')
+// const User = require('../models/user');
+
+const { signup, signin, signout, requireSignin, isAuth, isTutor, userById } = require('../controllers/auth');
 
 router.get('/', (req, res) => {
     res.send('auth routes')
 })
 
-router.post('/register', async (req, res) => {
-    try {
-        let { email, name, password } = req.body;
-        let hashedPassword = await bcrypt.hash(password, 10)
-        let user = new User({
-            email,
-            name,
-            password: hashedPassword
-        });
-        user = await user.save();
-        res.send(`user has been saved: ${user}`);
-    } catch (error) {
-        res.send(`error of: ${error}`);
-    }
+router.post('/signup', signup);
+router.post('/signin', signin);
+router.get('/signout', signout);
+
+router.get('/user/:userId', requireSignin, isAuth, isTutor, (req, res) => {
+    // console.log(req.auth)
+    res.send(`user found of: ${req.profile}`)
 })
 
-router.get('/protected', checkAuthenticated, (req, res) => {
-    res.send(`you have access to this auth route`);
-});
+router.param('userId', userById)
 
-router.get('/unprotected', checkNotAuthenticated, (req, res) => {
-    res.send(`you have access to this this unauth route`);
-})
 
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next()
-    }
-    res.send('not authenticated');
-}
-
-function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.send(`you are already authenticated`)
-    }
-    next();
-}
 
 module.exports = router;
