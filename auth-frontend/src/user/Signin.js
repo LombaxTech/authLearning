@@ -24,8 +24,10 @@ const Signin = () => {
             });
             result = await result.json()
             if (!result.error && typeof (window) !== 'undefined') {
-                localStorage.setItem('jwt', JSON.stringify(result));
+                localStorage.setItem('jwt', JSON.stringify({ ...result, student: true }));
             }
+            // window.location.reload();
+            window.location.href = "/";
             // Redirect to user home
 
         } catch (error) {

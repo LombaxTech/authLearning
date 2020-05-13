@@ -4,6 +4,8 @@ import Signin from './user/Signin';
 import AllTutors from './user/AllTutors';
 import TutorPage from './user/TutorPage';
 import Home from './user/Home';
+import PrivateRoute from './auth/PrivateRoute';
+import Private from './user/Private';
 
 const App = () => (
   <div>
@@ -13,6 +15,7 @@ const App = () => (
         <Route path="/tutors" exact component={AllTutors} />
         <Route path="/tutor/:tutorId" exact component={TutorPage} />
         <Route path="/signin" exact component={Signin} />
+        <PrivateRoute path="/private" exact component={Private} />
       </Switch>
     </Router>
   </div>
