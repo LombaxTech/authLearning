@@ -1,3 +1,9 @@
+[-] Messaging system
+[-] Email confirmation
+[-] Message notification system
+[-] Khan Academy like css style
+
+
 [-] Make Tutor and Student Models
 [-] Make Homepages for Tutor, Student, Not Logged In
 [-] Email confirmation password setting
