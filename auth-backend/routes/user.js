@@ -4,7 +4,7 @@ const User = require('../models/user');
 const { getTutor, getTutors } = require('../controllers/user');
 
 
-router.get('/tutor/:tutorId', getTutor)
-router.get('/tutors', getTutors)
+// router.get('/tutor/:tutorId', getTutor)
+// router.get('/tutors', getTutors)
 
 module.exports = router;
