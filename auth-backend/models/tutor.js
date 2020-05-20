@@ -24,6 +24,13 @@ const tutorSchema = new Schema({
     subjects: [String],
     bookings: [bookingSchema],
     cancelledBookings: [bookingSchema],
+    university: {
+        type: String
+    },
+    rating: {
+        type: Number
+    },
+    // messages: [messa]
     role: {
         type: Number,
         default: 1

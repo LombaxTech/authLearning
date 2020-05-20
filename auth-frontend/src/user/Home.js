@@ -4,23 +4,32 @@ import { isAuthenticated } from '../auth/index';
 import Signin from './Signin';
 import Signout from './Signout';
 
+
 let data = isAuthenticated();
 console.log(data)
 
-const loggedInMessage = user => {
+const studentMessage = student => (
+    <div>
+        <h1>Welcome {student.name}</h1>
+        <Signout />
+    </div>
+)
 
-    return (
-        <div>
-            <h1>Welcome {user.name}</h1>
-            <Signout />
-        </div>
-    )
-}
+const tutorMessage = tutor => (
+    <div>
+        <h1>Welcome {tutor.name}</h1>
+        <Signout />
+    </div>
+)
 
 const notLoggedInMessage = () => (
     <div>
         <h1>Not Logged in</h1>
+
         <Link to="/signin"> <h1>Sign in</h1></Link>
+        <Link to="/tutor/signin"><h2>Tutor Sign In</h2></Link>
+        <Link to="/student/signin"><h2>Student Sign In</h2></Link>
+
     </div>
 )
 
@@ -38,8 +47,12 @@ const Home = () => {
             <h1>Home</h1>
             <Link to={`/tutors`}>View Tutors</Link>
 
-            {data && (
-                loggedInMessage(data.user)
+            {data.tutor && (
+                tutorMessage(data.tutor)
+            )}
+
+            {data.student && (
+                studentMessage(data.student)
             )}
 
             {!data && (

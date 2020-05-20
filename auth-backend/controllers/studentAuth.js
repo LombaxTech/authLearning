@@ -34,7 +34,7 @@ exports.signin = async (req, res) => {
         res.cookie('testCookie', token, { expire: new Date() + 9999 });
         return res.json({
             token,
-            student: { id: student._id, name: student.name, email: student.email }
+            student: { id: student._id, name: student.name, email: student.email, role: student.role }
         })
     } catch (error) {
         return res.send(`error of: ${error}`)
