@@ -25,11 +25,10 @@ const Signin = () => {
             result = await result.json()
             if (!result.error && typeof (window) !== 'undefined') {
                 localStorage.setItem('jwt', JSON.stringify({ ...result, student: true }));
+                window.location.href = "/";
             }
             // window.location.reload();
-            window.location.href = "/";
             // Redirect to user home
-
         } catch (error) {
             console.log(`Incorrect email or password`)
         }

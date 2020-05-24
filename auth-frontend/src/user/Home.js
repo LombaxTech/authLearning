@@ -18,6 +18,20 @@ const studentMessage = student => (
 const tutorMessage = tutor => (
     <div>
         <h1>Welcome {tutor.name}</h1>
+        <ul>
+            <li>
+                <h2>Home</h2>
+            </li>
+            <li>
+                <h2>Bookings</h2>
+            </li>
+            <li>
+                <h2>Inbox</h2>
+            </li>
+            <li>
+                <h2>Settings</h2>
+            </li>
+        </ul>
         <Signout />
     </div>
 )
@@ -25,11 +39,8 @@ const tutorMessage = tutor => (
 const notLoggedInMessage = () => (
     <div>
         <h1>Not Logged in</h1>
-
-        <Link to="/signin"> <h1>Sign in</h1></Link>
         <Link to="/tutor/signin"><h2>Tutor Sign In</h2></Link>
         <Link to="/student/signin"><h2>Student Sign In</h2></Link>
-
     </div>
 )
 
