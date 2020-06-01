@@ -6,7 +6,7 @@ const AllTutors = () => {
     const [tutors, setTutors] = useState([]);
 
     async function init() {
-        let tutorsData = await fetch('http://localhost:8000/api/tutors')
+        let tutorsData = await fetch('http://localhost:8000/api/tutors/profiles')
         tutorsData = await tutorsData.json();
         setTutors(tutorsData);
     }
@@ -22,7 +22,7 @@ const AllTutors = () => {
                 {tutors.map(tutor => (
                     <li key={tutor._id}>
                         <h2>{tutor.name}'s Page</h2>
-                        <Link to={`/tutor/${tutor._id}`}>View Profile</Link>
+                        <Link to={`/tutor/page/${tutor._id}`}>View Profile</Link>
                     </li>
                 ))}
             </ul>

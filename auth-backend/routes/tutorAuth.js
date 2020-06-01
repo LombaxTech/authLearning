@@ -11,10 +11,10 @@ router.post('/signup', signup);
 router.post('/signin', signin);
 router.get('/signout', signout);
 
-router.get('/tutor/:tutorId', requireSignin, isAuth, isTutor, (req, res) => {
-    // console.log(req.auth)
-    res.send(`user found of: ${req.profile}`)
-})
+// router.get('/:tutorId', requireSignin, isAuth, isTutor, (req, res) => {
+//     // console.log(req.auth)
+//     res.send(`user found of: ${req.profile}`)
+// })
 
 router.param('tutorId', tutorById)
 

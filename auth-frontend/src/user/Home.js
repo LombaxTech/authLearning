@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { isAuthenticated } from '../auth/index';
-import Signin from './Signin';
 import Signout from './Signout';
 
 
