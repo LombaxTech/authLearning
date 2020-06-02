@@ -21,18 +21,19 @@ app.use(expressValidator());
 app.use(cors());
 
 // * Routes
-const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 
 const studentAuthRoutes = require('./routes/studentAuth');
 const tutorAuthRoutes = require('./routes/tutorAuth');
 
+const messageRoutes = require('./routes/message');
+
 // * Route middleware
-app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 
 app.use('/api/student', studentAuthRoutes);
 app.use('/api/tutor', tutorAuthRoutes);
+app.use('/api/message', messageRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, console.log('started listening'));

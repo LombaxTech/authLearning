@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 const bcrypt = require('bcrypt')
 const Student = require('../models/student');
-const User = require('../models/user');
 
 exports.signup = async (req, res) => {
     try {

@@ -7,6 +7,26 @@ const bookingSchema = new Schema({
     time: Date
 })
 
+const messageSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    message: String
+}, { timestamps: true });
+
+const inboxSchema = new Schema({
+    partnerName: {
+        type: String,
+        required: true
+    },
+    partnerId: {
+        type: String,
+        required: true
+    },
+    messages: [messageSchema]
+})
+
 const tutorSchema = new Schema({
     name: {
         type: String,
@@ -30,7 +50,7 @@ const tutorSchema = new Schema({
     rating: {
         type: Number
     },
-    // messages: [messa]
+    inbox: [inboxSchema],
     role: {
         type: Number,
         default: 1
