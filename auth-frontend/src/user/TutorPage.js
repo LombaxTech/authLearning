@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { isAuthenticated } from '../auth/index'
+
+let data = isAuthenticated();
 
 const TutorPage = props => {
 
@@ -27,7 +30,7 @@ const TutorPage = props => {
 
     const sendMessage = () => {
         // make sure logged in user
-        window.location.href = `/messages/${tutor._id}/myid`;
+        window.location.href = `/messages/${tutor._id}/${data.student.id}`;
     }
 
     if (error) {
