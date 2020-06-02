@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../auth/index';
 
 let user = isAuthenticated();
+let userType = user.tutor ? 'tutor' : 'student';
 
 const MessageBoard = (props) => {
 
     let { studentId, tutorId } = props.match.params
-
-    console.log(studentId)
 
     const [studentAndTutorValues, setStudentAndTutorValues] = useState({
         student: '',
@@ -33,10 +32,6 @@ const MessageBoard = (props) => {
         getStudentAndTutorValues();
     }, [])
 
-    let userType = user.tutor ? 'tutor' : 'student';
-
-    // console.log(userType);
-
     const [inputMessage, setInputMessage] = useState('');
 
     const handleInput = e => {
@@ -45,7 +40,7 @@ const MessageBoard = (props) => {
 
     const sendMessage = async () => {
         try {
-            let result = fetch(`http://localhost:8000/api/message/${userType}/${tutorId}/${studentId}`, {
+            let result = await fetch(`http://localhost:8000/api/message/${userType}/${tutorId}/${studentId}`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

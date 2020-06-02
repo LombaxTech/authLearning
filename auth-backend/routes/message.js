@@ -3,72 +3,27 @@ const router = express.Router();
 const Tutor = require('../models/tutor');
 const Student = require('../models/student');
 
-router.post('/:sender/:userOneId/:userTwoId', async (req, res) => {
+const { sendMessage, getInbox } = require('../controllers/message');
 
-    // * user one is tutor, user two is student
+router.post('/:sender/:userOneId/:userTwoId', sendMessage);
+router.get('/inbox/:userType/:userId', getInbox);
+router.get('/:currentUser/:userOneId/:userTwoId', async (req, res) => {
+    const { currentUser, userOneId, userTwoId } = req.params;
 
-    let { sender, userOneId, userTwoId } = req.params;
-    let { message } = req.body;
+    const tutor = await Tutor.findById({ _id: userOneId })
+    if (!tutor) return res.status(400).json({ error: 'No Tutor found' });
 
-    // return res.send(message);
+    const student = await Student.findById({ _id: userTwoId });
+    if (!student) return res.status(400).json({ error: 'no student found' });
 
-    try {
-        let userOne = await Tutor.findOne({ _id: userOneId });
-        if (!userOne) return res.status(400).json({ error: "Tutor does not have account" })
-        let userTwo = await Student.findOne({ _id: userTwoId });
-        if (!userTwo) return res.status(400).json({ error: "Student does not have account" })
+    if (currentUser == 'student') {
+        let currentChat = student.inbox.filter(chat => chat.partnerId == userOneId)
+        res.json(currentChat);
+    }
 
-        let userOneInbox = userOne.inbox;
-        let userTwoInbox = userTwo.inbox;
-
-        let userOneCurrentChat = userOneInbox.filter(chat => chat.partnerId == userTwoId);
-
-        // return res.json({ userOneCurrentChat })
-
-        if (userOneCurrentChat.length == 0) {
-            userOneInbox.push({
-                partnerName: userTwo.name,
-                partnerId: userTwoId
-            })
-            userTwoInbox.push({
-                partnerName: userOne.name,
-                partnerId: userOneId
-            })
-            userOneCurrentChat = userOneInbox.filter(chat => chat.partnerId == userTwoId);
-        }
-        let userTwoCurrentChat = userTwoInbox.filter(chat => chat.partnerId == userOneId);
-
-        // return res.json({ userOneCurrentChat, userTwoCurrentChat })
-
-        if (sender == 'tutor') {
-            userOneCurrentChat[0].messages.push({
-                name: userOne.name,
-                message
-            })
-            userTwoCurrentChat[0].messages.push({
-                name: userOne.name,
-                message
-            })
-        } else if (sender == 'student') {
-            userOneCurrentChat[0].messages.push({
-                name: userTwo.name,
-                message
-            })
-            userTwoCurrentChat[0].messages.push({
-                name: userTwo.name,
-                message
-            })
-        }
-
-        try {
-            let result = await userOne.save();
-            let resultTwo = await userTwo.save();
-            res.json({ success: true, result, resultTwo })
-        } catch (error) {
-            res.json({ error })
-        }
-    } catch (error) {
-        return res.status(400).json({ error: `there has been an error of: ${error}` })
+    if (currentUser == 'tutor') {
+        let currentChat = tutor.inbox.filter(chat => chat.partnerId == userTwoId)
+        res.json(currentChat);
     }
 })
 

@@ -9,9 +9,12 @@ import PrivateRoute from './auth/PrivateRoute';
 import Private from './user/Private';
 import MessageBoard from './user/MessageBoard';
 
+import Navbar from './Navbar';
+
 const App = () => (
   <div>
     <Router>
+      <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/tutor/signin" exact component={TutorSignin} />

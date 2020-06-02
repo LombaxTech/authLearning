@@ -29,8 +29,9 @@ const TutorPage = props => {
     }, [])
 
     const sendMessage = () => {
-        // make sure logged in user
-        window.location.href = `/messages/${tutor._id}/${data.student.id}`;
+        if (!data) return console.log('YOU MUST BE SIGNED IN');
+        if (data.tutor) return console.log('NOT ALLOWED');
+        if (data.student) window.location.href = `/messages/${tutor._id}/${data.student.id}`;
     }
 
     if (error) {
