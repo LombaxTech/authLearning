@@ -20,6 +20,12 @@ const Navbar = () => (
                 </li>
             )}
 
+            {data && (
+                <li>
+                    <Link to="/inbox">Inbox</Link>
+                </li>
+            )}
+
         </ul>
     </nav>
 )

@@ -13,7 +13,7 @@ const messageSchema = new Schema({
         required: true
     },
     message: String
-}, { timestamps: false });
+}, { timestamps: true });
 
 const inboxSchema = new Schema({
     partnerName: {
